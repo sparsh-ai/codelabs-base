@@ -1,26 +1,20 @@
 # Tools for authoring and serving codelabs
 
-[![Demo](https://storage.googleapis.com/claat/demo.png)](https://storage.googleapis.com/claat/demo.mp4)
+Template site is published at https://sparsh-ai.github.io/codelabs-base/.
+
+## What is this?
 
 Codelabs are interactive instructional tutorials, which can be authored in Jupyter notebooks and markdowns
 using some simple formatting conventions. You can also author codelabs using Google docs.
 This repo contains all the tools and documentation you’ll need for building and publishing
 your own codelabs.
 
-## What is this?
-
-For the past 3+ years, the CLaaT (Codelabs as a Thing) project has given developers around the
-world a hands-on experience with Google products and tools.  We’ve accumulated over 500 high quality
-codelabs, served millions of web visitors, and supported over 100 events, from local meetups
-all the way up to Google I/O.
-
-This project has been implemented as a volunteer project by a small group of dedicated Googlers
-who care deeply about this kind of “learning by doing” approach to education.
+[![Demo](https://storage.googleapis.com/claat/demo.png)](https://storage.googleapis.com/claat/demo.mp4)
 
 ## What's special about this tool?
 
-* Powerful and flexible authoring flow via Google Docs
-* Optional support for authoring in Markdown text
+* Powerful and flexible authoring flow via Jupyter notebooks and markdowns
+* Optional support for authoring in Google docs
 * Ability to produce interactive web or markdown tutorials without writing any code
 * Easy interactive previewing
 * Usage monitoring via Google Analytics
