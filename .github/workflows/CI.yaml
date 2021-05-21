@@ -42,20 +42,18 @@ jobs:
     - name: Add Redirect Patch
       run: |
         cd ./site/codelabs/
-        . ../../config.txt
         for dir in ./*/
         do
           echo "$dir"
           mkdir "$dir"scripts
           cp ../../codelab-elements/extras/codelab-elements.js "$dir"scripts
         done
-        grep -rl "<a href=\"'+hc(mc(a))+'\" id=\"arrow-back\">" ./ | xargs -r sed -i "s/<a href=\"'+hc(mc(a))+'\" id=\"arrow-back\">/<a href=\"'+hc(mc(a))+'\/\/\/\/"$TGTBASE"\/"$TGTSITE"\/\" id=\"arrow-back\">/g"
+        grep -rl "<a href=\"'+hc(mc(a))+'\" id=\"arrow-back\">" ./ | xargs -r sed -i "s/<a href=\"'+hc(mc(a))+'\" id=\"arrow-back\">/<a href=\"'+hc(mc(a))+'\/\/\/\/"${{ github.actor }}".github.io\/"${{ github.event.repository.name }}"\/\" id=\"arrow-back\">/g"
         grep -rl "https:\/\/storage.googleapis.com\/codelab-elements\/codelab-elements.js" ./ | xargs -r sed -i "s/https:\/\/storage.googleapis.com\/codelab-elements\/codelab-elements.js/scripts\/codelab-elements.js/g"
     - name: Add Image Path Patch
       run: |
         cd ./site/
-        . ../config.txt
-        grep -rl '"\/images/' ./ | xargs -r sed -i 's/"\/images\//"\/'$TGTSITE'\/images\//g'
+        grep -rl '"\/images/' ./ | xargs -r sed -i 's/"\/images\//"\/'${{ github.event.repository.name }}'\/images\//g'
     - uses: actions/setup-node@v2
       with:
         node-version: '14'
@@ -72,13 +70,12 @@ jobs:
     - name: Add Site Path Patch
       run: |
         cd ./site/
-        . ../config.txt
         rm -rf ./stage
         mkdir ./stage
         cp -r ./dist/ ./stage
         rm ./stage/dist/codelabs
-        grep -rl '"\/[a-zA-Z0-9]' ./stage/dist/ | xargs sed -i 's/"\//"\/'$TGTSITE'\//g'
-        grep -rl '\/'$TGTSITE'\/'$TGTSITE'\/' ./stage/dist/ | xargs sed -i 's/\/'$TGTSITE'\/'$TGTSITE'/\/'$TGTSITE'/g'
+        grep -rl '"\/[a-zA-Z0-9]' ./stage/dist/ | xargs sed -i 's/"\//"\/'${{ github.event.repository.name }}'\//g'
+        grep -rl '\/'${{ github.event.repository.name }}'\/'${{ github.event.repository.name }}'\/' ./stage/dist/ | xargs sed -i 's/\/'${{ github.event.repository.name }}'\/'${{ github.event.repository.name }}'/\/'${{ github.event.repository.name }}'/g'
         cp -r ./codelabs ./stage/dist
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
