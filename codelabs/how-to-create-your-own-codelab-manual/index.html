@@ -1,0 +1,215 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>How to create your own codelab (manual)</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="how-to-create-your-own-codelab-manual"
+                  title="How to create your own codelab (manual)"
+                  environment="web"
+                  feedback-link="https://form.jotform.com/211377288388469">
+    
+      <google-codelab-step label="Prerequisite" duration="5">
+        <h2 is-upgraded>Open Colab</h2>
+<p>We will use colab notebook for building and deploying our codelabs and landing page. Go to <a href="https://colab.research.google.com/" target="_blank">this</a> link and create a new notebook.</p>
+<h2 is-upgraded>Create Tutorial in colab</h2>
+<p>Write down your desired tutorial in colab as per <a href="https://github.com/googlecodelabs/tools/blob/master/FORMAT-GUIDE.md" target="_blank">these</a> markdown instructions. You can copy/check <a href="https://colab.research.google.com/gist/sparsh-ai/813507efeead92c86b8ca8b0d734e25e/codelabs-template.ipynb" target="_blank">this</a> example colab notebook for reference.</p>
+<p>After creating the tutorial, save the colab by clicking on <code>File -&gt; Save</code> or use keyboard shortcut <code>ctrl+s</code>. This notebook will automatically be saved in your account&#39;s <code>gdrive -&gt; colab notebooks</code> folder.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create codelab" duration="10">
+        <h2 is-upgraded>Open a new colab notebook</h2>
+<p>You can open a new colab notebook or copy this pre-built colab, containing the same code.</p>
+<h2 is-upgraded>Attach the google drive</h2>
+<p>To get the tutorial notebook from gdrive, we have to attach the drive to our colab runtime environment.</p>
+<p>Click on the third button (with google drive logo) and follow the process to connect.</p>
+<h2 is-upgraded>Update these parameters</h2>
+<pre><code language="language-python" class="language-python">filename = &#39;codelabs-how-to-create-your-own-codelab-shared&#39;
+codelab_id = &#39;how-to-create-your-own-codelab&#39;
+target_base = &#34;spar-data.github.io&#34;
+target_site = &#34;my-codelabs&#34;
+git_username = &#34;spar-data&#34;
+git_email = &#34;spar-data@gmail.com&#34;
+</code></pre>
+<h2 is-upgraded>Install go and claat command-line toolkits</h2>
+<pre><code language="language-python" class="language-python">!add-apt-repository ppa:longsleep/golang-backports -y
+!apt update
+!apt install golang-go
+%env GOPATH=/root/go
+!go get github.com/googlecodelabs/tools/claat
+!cp ~/go/bin/claat /usr/bin/
+</code></pre>
+<h2 is-upgraded>Convert into codelab format</h2>
+<pre><code language="language-python" class="language-python">%cd /content
+!cp /content/drive/MyDrive/Colab\ Notebooks/$filename&#39;.ipynb&#39; .
+!jupyter nbconvert --to markdown $filename
+!claat export $filename&#39;.md&#39;
+</code></pre>
+<h2 is-upgraded>Verify the codelab format</h2>
+<pre><code language="language-python" class="language-python">from google.colab.output import eval_js
+print(eval_js(&#34;google.colab.kernel.proxyPort(9090)&#34;))
+!cd $codelab_id &amp;&amp; claat serve
+</code></pre>
+<h2 is-upgraded>Apply redirect patch</h2>
+<pre><code language="language-python" class="language-python">%cd /content/$codelab_id
+!mkdir -p scripts &amp;&amp; \
+cd scripts &amp;&amp; \
+rm codelab-elements.js &amp;&amp; \
+wget -q https://raw.githubusercontent.com/sparsh-ai/static/main/javascripts/codelab-elements.js
+!grep -rl &#34;&lt;a href=\&#34;&#39;+hc(mc(a))+&#39;\&#34; id=\&#34;arrow-back\&#34;&gt;&#34; ./ | xargs sed -i &#34;s/&lt;a href=\&#34;&#39;+hc(mc(a))+&#39;\&#34; id=\&#34;arrow-back\&#34;&gt;/&lt;a href=\&#34;&#39;+hc(mc(a))+&#39;\/\/\/\/&#34;{target_base}&#34;\/&#34;{target_site}&#34;\/\&#34; id=\&#34;arrow-back\&#34;&gt;/g&#34;
+!grep -rl &#34;https:\/\/storage.googleapis.com\/codelab-elements\/codelab-elements.js&#34; ./ | xargs sed -i &#34;s/https:\/\/storage.googleapis.com\/codelab-elements\/codelab-elements.js/scripts\/codelab-elements.js/g&#34;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create landing page" duration="10">
+        <h2 is-upgraded>Fork the base repo</h2>
+<p>Fork <a href="https://github.com/sparsh-ai/codelabs-manual" target="_blank">this</a> repo.</p>
+<p>Rename the repo if you want. Update the parameter value <code>target_site</code> in this case.</p>
+<h2 is-upgraded>Setup git cli</h2>
+<p>There are different ways to setup git cli in colab. I will follow this process:</p>
+<ol type="1">
+<li>Generate personal access token</li>
+<li>Store this token in <code>creds.py</code> python file in the following format:  <pre><code language="language-python" class="language-python">git_access_token = &#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#34;
+</code></pre>
+<ol type="1">
+<li>Access this token using the following commands: <code>python<br>import sys<br>sys.path.append(&#34;/content/drive/MyDrive&#34;)<br>import creds<br>git_access_token = creds.git_access_token<br></code></li>
+</ol>
+</li>
+<li>Basic configuration</li>
+</ol>
+<pre><code language="language-python" class="language-python">%cd /content
+!mkdir $target_site
+%cd $target_site
+!git init
+!git config --global user.email $git_username
+!git config --global user.name $git_email
+</code></pre>
+<h2 is-upgraded>Pull the repo</h2>
+<pre><code language="language-python" class="language-python">!git remote add origin https://&#34;{git_access_token}&#34;:x-oauth-basic@github.com/&#34;{git_username}&#34;/&#34;{target_site}&#34;.git
+!git pull origin master
+</code></pre>
+<h2 is-upgraded>Add your codelab and push the changes to feature branch</h2>
+<pre><code language="language-python" class="language-python">%cd /content/$target_site
+!git checkout master
+!git checkout -b $codelab_id
+!cp -r /content/$codelab_id ./site/codelabs
+!git add .
+!git commit -m  &#39;add codelab: &#39;{codelab_id}
+!git status
+!git push -f origin $codelab_id
+</code></pre>
+<h2 is-upgraded>Review and merge</h2>
+<p>Go to your github repo and review the changes. Verify the changes and create pull request to merge this feature branch into master. If you want to skip this step, you can directly push the changes to master branch.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Deploy the codelab" duration="10">
+        <h2 is-upgraded>Pull the updated repo</h2>
+<p>We can rebase the repo that we pulled and updated in last few steps but to make these steps modular and independent of each other, so that we can skip steps if required, we will remove and repull the whole repo.</p>
+<pre><code language="language-python" class="language-python">%cd /content
+!rm -r $target_site
+!mkdir $target_site
+%cd $target_site
+!git init
+!git remote add origin https://&#34;{git_access_token}&#34;:x-oauth-basic@github.com/&#34;{git_username}&#34;/&#34;{target_site}&#34;.git
+!git pull origin master
+</code></pre>
+<h2 is-upgraded>Build the site</h2>
+<p>This code installs node package manager and use gulp to build the static version of the whole codelab site.</p>
+<pre><code language="language-python" class="language-python">%cd site
+!npm install
+!npm install -g npm
+!npm install -g gulp-cli
+!gulp dist
+</code></pre>
+<p>We will copy the assets in a temporary folder and then paste in the branch of our repo.</p>
+<pre><code language="language-python" class="language-python">import shutil
+shutil.copytree(f&#39;/content/{target_site}/site/dist&#39;, &#39;/content/temp/site&#39;)
+!mv /content/temp/site/codelabs /content/temp
+</code></pre>
+<p>The following code is a patch to add our site name to the base paths so that git pages can correctly pull all the local reference files.</p>
+<pre><code language="language-python" class="language-python">!cd /content/temp/site &amp;&amp; grep -rl &#39;&#34;\/[a-zA-Z0-9]&#39; ./ | xargs sed -i &#39;s/&#34;\//&#34;\/&#39;{target_site}&#39;\//g&#39;
+</code></pre>
+<h2 is-upgraded>Push the changes to <code>artifacts</code> branch</h2>
+<pre><code language="language-python" class="language-python">%cd /content/$target_site
+!git reset --hard
+!git checkout --orphan artifacts
+!git rm -rf .
+!cp -r /content/temp/site/* .
+!cp -r /content/temp/codelabs .
+!rm -r ./site
+!git add .
+!git commit -m &#39;build feature: &#39;{codelab_id}
+!git push -f origin artifacts
+</code></pre>
+<h2 is-upgraded>Attach github pages to artifacts branch</h2>
+<ol type="1">
+<li>Go to your repo&#39;s settings</li>
+<li>Go to ‘pages&#39; and select ‘artifacts (root)&#39; as your gh-pages</li>
+<li>Go to your gh-pages url to access your codelabs</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Customize" duration="5">
+        <h2 is-upgraded>Customize Landing Page</h2>
+<ol type="1">
+<li>Change Header and Logo</li>
+<li>Add Category</li>
+<li>Add View</li>
+<li>Change Footer</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Conclusion" duration="5">
+        <h2 is-upgraded>Verify</h2>
+<p>Go to the github pages of your repo to access the codelab site. Verify the functionality and modify/enhance the process as per requirements.</p>
+<h2 is-upgraded>Iterate</h2>
+<p>Add more codelabs easily by using <a href="https://colab.research.google.com/gist/sparsh-ai/813507efeead92c86b8ca8b0d734e25e/codelabs-template.ipynb#scrollTo=-67Oh2k3uCIW" target="_blank">this</a> colab that we share in the begninning.</p>
+<h2 is-upgraded>In future</h2>
+<ul>
+<li>Automate some steps using <em>Github Actions</em>.</li>
+<li>Enhance the design of codelab landing page.</li>
+<li>Enhance the design of codelab tutorials.</li>
+<li>Change google analytics id.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="scripts/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>How to create your own codelab (automated)</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="how-to-create-your-own-codelab-automated"
+                  title="How to create your own codelab (automated)"
+                  environment="web"
+                  feedback-link="https://github.com/sparsh-ai/codelabs/issues">
+    
+      <google-codelab-step label="Prepare your Tutorial" duration="5">
+        <h2 is-upgraded>Setup Jupyter</h2>
+<p>We chose jupyter notebooks as an ideal choice for preparing tutorials because it integrates markdown with code, images and million other things. If you do not have a jupyter environment setup locally, you can choose <a href="https://colab.research.google.com/" target="_blank">Colab</a> or <a href="https://mybinder.org/v2/gh/jupyterlab/jupyterlab-demo/master?urlpath=lab/tree/demo" target="_blank">Binder</a> to prepare your notebook on cloud for free.</p>
+<h2 is-upgraded>Create Tutorial</h2>
+<p>Write down your tutorial in colab as per <a href="https://github.com/googlecodelabs/tools/blob/master/FORMAT-GUIDE.md" target="_blank">these</a> markdown instructions.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setup Git Repository" duration="10">
+        <p>This step is a one-time setup process. We will use GitHub to maintain and host our codelab site for free.</p>
+<h2 is-upgraded>Fork</h2>
+<p>Fork <a href="https://github.com/sparsh-ai/codelabs" target="_blank">this</a> repo.</p>
+<h2 is-upgraded>Rename (optional)</h2>
+<p>Rename this forked repo if you want. You can choose any name you like.</p>
+<h2 is-upgraded>Update</h2>
+<p>Update the <code>config.txt</code> file, which is present in the root folder of this forked repo. Replace the two variables:</p>
+<ol type="1">
+<li>Put your <code>&lt;git username&gt;</code>.github.io in the TGTBASE variable.</li>
+<li>Put your <code>repo name</code> in the TGTSITE variable.</li>
+</ol>
+<p>e.g. for a git user <code>sparsh-ai</code> and repo name <code>codelab</code>, the updated file would look like this:</p>
+<pre><code language="language-bash" class="language-bash">export TGTBASE=&#34;sparsh-ai.github.io&#34;
+export TGTSITE=&#34;codelabs&#34;
+</code></pre>
+<h2 is-upgraded>Customize (optional)</h2>
+<p>You can customize both landing page and codelabs.</p>
+<aside class="special"><p> Codelab customization is mainly done via tags that we provide during the creation of jupyter notebook based tutorials. </p>
+</aside>
+<p>We can customize the following items in landing page by simple modifications.</p>
+<ol type="1">
+<li>Change Header and Logo</li>
+<li>Add Category</li>
+<li>Add View</li>
+<li>Change Footer</li>
+</ol>
+<h3 is-upgraded>Change Header and Logo</h3>
+<ol type="1">
+<li>To change header and main page content, go to <code>site &gt; app &gt; views &gt; default</code> and change <code>index.html</code> content as well as <code>view.json</code> contents accordingly.</li>
+<li>To change logo, go to <code>site &gt; app &gt; images</code> and replace <code>my-logo.svg</code> with your logo.</li>
+</ol>
+<p>Note: assuming the basic knowledge of html formattings. scope is mainly limited to find and replace things anyway.</p>
+<h3 is-upgraded>Add Category</h3>
+<ol type="1">
+<li>Go to <code>site &gt; app &gt; styles &gt; _categories.scss</code> and add your category at the bottom in this format: <code>@include codelab-card([&#39;gitaction&#39;], $color-weave-green, &#39;gitaction.svg&#39;);</code> where <code>gitaction</code> is the category.</li>
+<li>Go to <code>site &gt; app &gt; images &gt; icons</code> and add svg icon with the same name as your category.</li>
+<li>To use it, while creating codelab, add this category in the <code>categories</code> mata tag.</li>
+</ol>
+<h3 is-upgraded>Add View</h3>
+<ol type="1">
+<li><code>site &gt; app &gt; views</code> and duplicate the <code>medium</code> folder.</li>
+<li>rename the folder name to any name you want for your view.</li>
+<li>Edit its json accordingly and add any image with the same name as your view.</li>
+</ol>
+<p>Note: Refer to this <code>medium</code> folder for guidance, and delete it afterwards if required.</p>
+<h3 is-upgraded>Change Footer</h3>
+<p>To change footer, go to <code>site &gt; app &gt; views &gt; default</code> and change <code>index.html</code> content accordingly.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add new Codelabs" duration="5">
+        <p>To add a new codelab to the codelab site, pull the repo, add the notebook and push it back to the master.</p>
+<h2 is-upgraded>Pull the repo</h2>
+<p>Pull the repo using <code>git pull origin master</code> where origin is pointed to your repo where codelabs site is hosted. If repo is already there, you can opt for <code>git pull --rebase origin master</code> instead.</p>
+<h2 is-upgraded>Add tutorial notebook</h2>
+<p>Add your tutorial notebook in the <code>_notebook</code> folder. Make sure the notebook format is following the codelab markdown guidelines and the extension is <code>.ipynb</code>.</p>
+<h2 is-upgraded>Push the repo</h2>
+<p>Push the updated repo changes to master branch using the standard set of add -&gt; commit -&gt; push chain. e.g. you can use <code>git add . &amp;&amp; git commit -m &#39;new build&#39; &amp;&amp; git push origin master</code> to push the changes.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Conclusion" duration="1">
+        <p>Git actions workflow named <code>CI</code> would automatically start deploying latest changes of the master branch. You can check the status in <code>Actions</code> tab of your git repo.</p>
+<p>To access the codelabs site, go to your github pages URL. The typical URL format is <code>https://&lt;user_name&gt;.github.io/&lt;repo_name&gt;</code>.</p>
+<p>Verify the functionality and modify/enhance the process as per requirements.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="scripts/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
