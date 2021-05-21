@@ -1,0 +1,88 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:     
+  build-site:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copy Repository Contents
+      uses: actions/checkout@v2
+    - name: Install Claat CLI
+      run: |
+        sudo add-apt-repository ppa:longsleep/golang-backports -y
+        sudo apt update
+        sudo apt install golang-go
+        sudo env GOPATH=/root/go
+        sudo go get github.com/googlecodelabs/tools/claat
+        sudo cp /root/go/bin/claat /usr/bin/
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install nbconvert
+      run: |
+        python -m pip install --upgrade pip
+        pip install nbconvert
+    - name: Convert Notebooks to Codelabs
+      run: |
+        for file in ./_notebooks/*.ipynb
+        do
+          jupyter nbconvert --output-dir="./site/codelabs" --to markdown "$file"
+        done
+        cd ./site/codelabs/
+        for file in ./*.md
+        do
+          claat export "$file"
+        done
+    - name: Add Redirect Patch
+      run: |
+        cd ./site/codelabs/
+        . ../../config.txt
+        for dir in ./*/
+        do
+          echo "$dir"
+          mkdir "$dir"scripts
+          cp ../../codelab-elements/extras/codelab-elements.js "$dir"scripts
+        done
+        grep -rl "<a href=\"'+hc(mc(a))+'\" id=\"arrow-back\">" ./ | xargs -r sed -i "s/<a href=\"'+hc(mc(a))+'\" id=\"arrow-back\">/<a href=\"'+hc(mc(a))+'\/\/\/\/"$TGTBASE"\/"$TGTSITE"\/\" id=\"arrow-back\">/g"
+        grep -rl "https:\/\/storage.googleapis.com\/codelab-elements\/codelab-elements.js" ./ | xargs -r sed -i "s/https:\/\/storage.googleapis.com\/codelab-elements\/codelab-elements.js/scripts\/codelab-elements.js/g"
+    - name: Add Image Path Patch
+      run: |
+        cd ./site/
+        . ../config.txt
+        grep -rl '"\/images/' ./ | xargs -r sed -i 's/"\/images\//"\/'$TGTSITE'\/images\//g'
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: Install npm
+      run: |
+        cd ./site/
+        npm install
+        npm install -g npm
+        npm install -g gulp-cli
+    - name: Build Site
+      run: |
+        cd ./site/
+        gulp dist
+    - name: Add Site Path Patch
+      run: |
+        cd ./site/
+        . ../config.txt
+        rm -rf ./stage
+        mkdir ./stage
+        cp -r ./dist/ ./stage
+        rm ./stage/dist/codelabs
+        grep -rl '"\/[a-zA-Z0-9]' ./stage/dist/ | xargs sed -i 's/"\//"\/'$TGTSITE'\//g'
+        grep -rl '\/'$TGTSITE'\/'$TGTSITE'\/' ./stage/dist/ | xargs sed -i 's/\/'$TGTSITE'\/'$TGTSITE'/\/'$TGTSITE'/g'
+        cp -r ./codelabs ./stage/dist
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site/stage/dist
+        publish_branch: gh-pages
