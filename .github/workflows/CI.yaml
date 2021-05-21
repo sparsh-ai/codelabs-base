@@ -30,6 +30,7 @@ jobs:
         pip install nbconvert
     - name: Convert Notebooks to Codelabs
       run: |
+        cp -r ./_notebooks/img ./site/codelabs
         for file in ./_notebooks/*.ipynb
         do
           jupyter nbconvert --output-dir="./site/codelabs" --to markdown "$file"
