@@ -7,13 +7,6 @@ using some simple formatting conventions. You can also author codelabs using Goo
 This repo contains all the tools and documentation you’ll need for building and publishing
 your own codelabs.
 
-## Important resources
-1. [Codelab Formatting Guide](FORMAT-GUIDE.md)
-3. [Google Codelabs site](https://g.co/codelabs)
-3. [Codelab Tool Official GitHub](https://github.com/googlecodelabs/tools)
-4. [Check out this excellent tutorial](https://medium.com/@zarinlo/publish-technical-tutorials-in-google-codelab-format-b07ef76972cd)
-5. [Check out this another tutorial](https://www.marcd.dev/codelab-4-codelab/#0)
-
 ## What is this?
 
 For the past 3+ years, the CLaaT (Codelabs as a Thing) project has given developers around the
@@ -42,39 +35,93 @@ who care deeply about this kind of “learning by doing” approach to education
 Yes, this repo can be used by anyone to author their
 own codelabs and to serve up their own codelabs on the web.
 
-## Where did this come from?
+## How to prepare your Tutorial
 
-For several years, Googlers would rush to build new tutorials and related assets for our
-annual developer event, Google I/O. But every year the authoring platform and distribution
-mechanism changed. As a result, there was little reuse of content and serving infrastructure,
-And every year we essentially kept reinventing the same wheel.
+### Setup Jupyter
 
-For Google I/O 2014, Shawn Simister wrote a Python program which retrieved
-specially formatted documents from Google Drive, parsed them, and generated
-a nice interactive web-based user experience. This allowed authors to design their
-codelabs using Google Docs, with its great interactivity and collaboration features,
-and automatically convert those documents into beautiful web based tutorials,
-without needing to write a single line of code.
+We chose jupyter notebooks as an ideal choice for preparing tutorials because it integrates markdown with code, images and million other things. If you do not have a jupyter environment setup locally, you can choose [Colab](https://colab.research.google.com/) or [Binder](https://mybinder.org/v2/gh/jupyterlab/jupyterlab-demo/master?urlpath=lab/tree/demo) to prepare your notebook on cloud for free.
 
-Later, Ewa Gasperowicz wrote a site generator, supporting the ability to
-publish custom landing pages, with associated branding and an inventory of codelabs
-specially curated for a given event.
+### Create Tutorial
+Write down your tutorial in colab as per [these](https://github.com/googlecodelabs/tools/blob/master/FORMAT-GUIDE.md) markdown instructions.
 
-Alex Vaghin later rewrote Shawn's Python program as a statically linked Go program (the claat command in this repo), eliminating many runtime dependencies, improving translation
-performance. Alex also added, among many other enhancements, a proper abstract syntax
-tree (to facilitate translation to different output formats), an app engine based previewer, an extensible rendering engine, support for generating markdown output. Alex also wrote the web serving infrastructure, the build tooling (based on gulp), and, with the author, the ability to self-publish codelabs directly from the preview app.
+## How to setup your own codelab site
+*This step is a one-time setup process. We will use GitHub to maintain and host our codelab site for free.*
 
-Clare Bayley has been the guru of onsite codelab experiences, running events large and small, while Sam Thorogood and Chris Broadfoot made major contributions to the onsite kiosks you may have seen at Google I/O.
+### Clone
+Login to your git account and go to [this](https://github.com/sparsh-ai/codelabs-base) site and click ```Use this template``` button.
 
-Eric Bidelman redesigned the codelab user interface using Polymer components and built the g.co/codelabs landing page, to provide a beautiful user experience that looks great and works equally well on desktop and mobile devices.
+![clone](_notebooks/img/how-to-setup-your-own-codelab-site-clone.png)
 
-Lots of other contributions have been made over the years and I’m sure that I’m neglecting some important advances but for the sake of brevity, I’ll leave it at that.
+### Name
+Give your site a name and click on ```Include all branches```.
+
+![rename](_notebooks/img/how-to-setup-your-own-codelab-site-rename.png)
+
+### Let it bake
+
+Wait for 3-4 minutes till this yellow dot becomes green. Git Actions is preparing your site in the background. Go to ```Actions``` tab to see the process.
+
+![bake](_notebooks/img/how-to-setup-your-own-codelab-site-bake.png)
+
+## How to Customize your site
+You can customize both landing page and codelabs. Codelab customization is mainly done via tags that we provide during the creation of jupyter notebook based tutorials.
+
+You can customize the following items in landing page by simple modifications.
+1. Change Header and Logo
+2. Add Category
+3. Add View
+4. Change Footer
+
+### Change Header and Logo
+1. To change header and main page content, go to ```site > app > views > default``` and change ```index.html``` content as well as ```view.json``` contents accordingly.
+2. To change logo, go to ```site > app > images``` and replace ```my-logo.svg``` with your logo.
+
+Note: assuming the basic knowledge of html formattings. scope is mainly limited to find and replace things anyway.
+
+### Add Category
+1. Go to ```site > app > styles > _categories.scss``` and add your category at the bottom in this format: ```@include codelab-card(['gitaction'], $color-weave-green, 'gitaction.svg');``` where ```gitaction``` is the category.
+2. Go to ```site > app > images > icons``` and add svg icon with the same name as your category.
+3. To use it, while creating codelab, add this category in the ```categories``` mata tag.
+
+
+### Add View
+1. ```site > app > views``` and duplicate the ```medium``` folder.
+2. rename the folder name to any name you want for your view.
+3. Edit its json accordingly and add any image with the same name as your view.
+
+Note: Refer to this ```medium``` folder for guidance, and delete it afterwards if required.
+
+### Change Footer
+To change footer, go to ```site > app > views > default``` and change ```index.html``` content accordingly.
+
+## How to add new Codelabs
+To add a new codelab to the codelab site, pull the repo, add the notebook and push it back to the master.
+
+### Pull the repo
+Pull the repo using ```git pull origin master``` where origin is pointed to your repo where codelabs site is hosted. If repo is already there, you can opt for ```git pull --rebase origin master``` instead.
+
+### Add tutorial notebook
+Add your tutorial notebook in the ```_notebook``` folder. Make sure the notebook format is following the codelab markdown guidelines and the extension is ```.ipynb```.
+
+### Push the repo
+Push the updated repo changes to master branch using the standard set of add -> commit -> push chain. e.g. you can use ```git add . && git commit -m 'new build' && git push origin master``` to push the changes.
+
+Git actions workflow named ```CI``` would automatically start deploying latest changes of the master branch. You can check the status in ```Actions``` tab of your git repo.
+
+To access the codelabs site, go to your github pages URL. The typical URL format is ```https://<user_name>.github.io/<repo_name>```.
+
+Verify the functionality and modify/enhance the process as per requirements.
+
+## Important resources
+1. [Codelab Formatting Guide](FORMAT-GUIDE.md)
+3. [Google Codelabs site](https://g.co/codelabs)
+3. [Codelab Tool Official GitHub](https://github.com/googlecodelabs/tools)
+4. [Check out this excellent tutorial](https://medium.com/@zarinlo/publish-technical-tutorials-in-google-codelab-format-b07ef76972cd)
+5. [Check out this another tutorial](https://www.marcd.dev/codelab-4-codelab/#0)
 
 ## Acknowledgements
-
 Google Codelabs exists thanks to the talents and efforts of many fine volunteers, including:
 Alex Vaghin, Marc Cohen, Shawn Simister, Ewa Gasperowicz, Eric Bidelman, Robert Kubis, Clare Bayley, Cassie Recher, Chris Broadfoot, Sam Thorogood, Ryan Seys, and the many codelab authors, inside and outside of Google, who have generated a veritable [treasure trove of content](https://g.co/codelabs).
 
 ## Notes
-
 This is not an official Google product.
