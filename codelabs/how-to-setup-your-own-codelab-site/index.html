@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>How to create your own codelab (automated)</title>
+  <title>How to setup your own codelab site (automated)</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -22,8 +22,8 @@
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  id="how-to-create-your-own-codelab-automated"
-                  title="How to create your own codelab (automated)"
+                  id="how-to-setup-your-own-codelab-site"
+                  title="How to setup your own codelab site (automated)"
                   environment="web"
                   feedback-link="https://github.com/sparsh-ai/codelabs/issues">
     
@@ -36,27 +36,26 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Setup Git Repository" duration="10">
-        <p>This step is a one-time setup process. We will use GitHub to maintain and host our codelab site for free.</p>
-<h2 is-upgraded>Fork</h2>
-<p>Fork <a href="https://github.com/sparsh-ai/codelabs" target="_blank">this</a> repo.</p>
-<h2 is-upgraded>Rename (optional)</h2>
-<p>Rename this forked repo if you want. You can choose any name you like.</p>
-<h2 is-upgraded>Update</h2>
-<p>Update the <code>config.txt</code> file, which is present in the root folder of this forked repo. Replace the two variables:</p>
-<ol type="1">
-<li>Put your <code>&lt;git username&gt;</code>.github.io in the TGTBASE variable.</li>
-<li>Put your <code>repo name</code> in the TGTSITE variable.</li>
-</ol>
-<p>e.g. for a git user <code>sparsh-ai</code> and repo name <code>codelab</code>, the updated file would look like this:</p>
-<pre><code language="language-bash" class="language-bash">export TGTBASE=&#34;sparsh-ai.github.io&#34;
-export TGTSITE=&#34;codelabs&#34;
-</code></pre>
-<h2 is-upgraded>Customize (optional)</h2>
-<p>You can customize both landing page and codelabs.</p>
-<aside class="special"><p> Codelab customization is mainly done via tags that we provide during the creation of jupyter notebook based tutorials. </p>
+      <google-codelab-step label="Setup your site" duration="5">
+        <aside class="special"><p> This step is a one-time setup process. We will use GitHub to maintain and host our codelab site for free. </p>
 </aside>
-<p>We can customize the following items in landing page by simple modifications.</p>
+<h2 is-upgraded>Clone</h2>
+<p>Login to your git account and go to <a href="https://github.com/sparsh-ai/codelabs-base" target="_blank">this</a> site and click <code>Use this template</code> button.</p>
+<p class="image-container"><img alt="clone" src="img/87677f00bb6b37c1.png"></p>
+<h2 is-upgraded>Name</h2>
+<p>Give your site a name and click on <code>Include all branches</code>.</p>
+<p class="image-container"><img alt="name" src="img/27969e7f994dfeea.png"></p>
+<h2 is-upgraded>Let it bake</h2>
+<p>Wait for 3-4 minutes till this yellow dot becomes green. Git Actions is preparing your site in the background. Go to <code>Actions</code> tab to see the process.</p>
+<p class="image-container"><img alt="bake" src="img/8eaaf2b584710342.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Customize (optional)" duration="10">
+        <aside class="special"><p>     You can customize both landing page and codelabs. Codelab customization is mainly done via tags that we provide during the creation of jupyter notebook based tutorials. </p>
+</aside>
+<p>You can customize the following items in landing page by simple modifications.</p>
 <ol type="1">
 <li>Change Header and Logo</li>
 <li>Add Category</li>

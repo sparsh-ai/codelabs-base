@@ -2,10 +2,10 @@
 <browserconfig>
   <msapplication>
     <tile>
-      <square70x70logo src="/codelabs/images/favicons/mstile-70x70.png"/codelabs/>
-      <square150x150logo src="/codelabs/images/favicons/mstile-150x150.png"/codelabs/>
-      <square310x310logo src="/codelabs/images/favicons/mstile-310x310.png"/codelabs/>
-      <wide310x150logo src="/codelabs/images/favicons/mstile-310x150.png"/codelabs/>
+      <square70x70logo src="/codelabs-base/images/favicons/mstile-70x70.png"/codelabs-base/>
+      <square150x150logo src="/codelabs-base/images/favicons/mstile-150x150.png"/codelabs-base/>
+      <square310x310logo src="/codelabs-base/images/favicons/mstile-310x310.png"/codelabs-base/>
+      <wide310x150logo src="/codelabs-base/images/favicons/mstile-310x150.png"/codelabs-base/>
       <TileColor>#455a64</TileColor>
     </tile>
   </msapplication>

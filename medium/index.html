@@ -16,22 +16,22 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 </script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
 <title>Medium Articles</title>
-<link rel="stylesheet" href="/codelabs/styles/main.css">
-<link rel="import" href="/codelabs/elements/elements.html">
+<link rel="stylesheet" href="/codelabs-base/styles/main.css">
+<link rel="import" href="/codelabs-base/elements/elements.html">
 <style is="custom-style">
 :root{--paper-tabs-selection-bar-color:currentcolor;--paper-input-container-underline:{display:none};--paper-input-container-underline-focus:{display:none};}.dropdown-filter{--paper-input-container:{padding:8px}} </style>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#455a64">
 <meta name="apple-mobile-web-app-title" content="Medium Articles">
-<link rel="apple-touch-icon" sizes="180x180" href="/codelabs/images/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/codelabs/images/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="194x194" href="/codelabs/images/favicons/favicon-194x194.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/codelabs/images/favicons/android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/codelabs/images/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/codelabs-base/images/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/codelabs-base/images/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="194x194" href="/codelabs-base/images/favicons/favicon-194x194.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/codelabs-base/images/favicons/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/codelabs-base/images/favicons/favicon-16x16.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="mask-icon" href="/codelabs/images/favicons/safari-pinned-tab.svg" color="#455a64">
+<link rel="mask-icon" href="/codelabs-base/images/favicons/safari-pinned-tab.svg" color="#455a64">
 <meta name="msapplication-TileColor" content="#455a64">
-<meta name="msapplication-TileImage" content="/codelabs/images/favicons/mstile-144x144.png">
+<meta name="msapplication-TileImage" content="/codelabs-base/images/favicons/mstile-144x144.png">
 <meta name="theme-color" content="#455a64">
 <meta name="og:type" property="og:type" content="website">
 <meta name="og:title" property="og:title" content="Medium Articles">
@@ -40,8 +40,8 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 <meta name="og:site_name" property="og:site_name" content="Codelabs">
 <meta name="og:determiner" property="og:determiner" content="the">
 <meta name="og:locale" property="og:locale" content="en_US">
-<meta name="og:image" property="og:image" content="/codelabs/images/og-image.png">
-<meta name="og:image:url" property="og:image:url" content="/codelabs/images/og-image.png">
+<meta name="og:image" property="og:image" content="/codelabs-base/images/og-image.png">
+<meta name="og:image:url" property="og:image:url" content="/codelabs-base/images/og-image.png">
 <meta name="og:image:type" property="og:image:type" content="image/png">
 <meta name="og:image:width" property="og:image:width" content="1200">
 <meta name="og:image:height" property="og:image:height" content="1200">
@@ -49,15 +49,15 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 <meta name="twitter:card" property="twitter:card" content="summary_large_image">
 <meta name="twitter:title" property="twitter:title" content="Medium Articles">
 <meta name="twitter:description" property="twitter:description" content="Hosting codelabs that have been used to write Medium articles">
-<meta name="twitter:image" property="twitter:image" content="/codelabs/images/og-image.png">
+<meta name="twitter:image" property="twitter:image" content="/codelabs-base/images/og-image.png">
 <meta name="twitter:url" property="twitter:url" content="https://exampler.com/medium/">
 </head>
 <body id="app" is="body-bind" class="loading fullbleed view">
 <paper-header-panel id="main" mode="standard" main>
 <div id="mainToolbar" class="paper-header">
 <div class="site-width layout horizontal">
-<a href="/codelabs/">
-<img src="/codelabs/images/my-logo.svg" class="logo-devs" alt="Codelabs Logo">
+<a href="/codelabs-base/">
+<img src="/codelabs-base/images/my-logo.svg" class="logo-devs" alt="Codelabs Logo">
 </a>
 <div id="searchbar">
 <paper-input-container no-label-float>
@@ -71,7 +71,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 <header id="banner" down>
 <div class="site-width">
 <div class="banner-description">
-<img id="logo" src="/codelabs/medium/medium.svg" alt="Event logo">
+<img id="logo" src="/codelabs-base/medium/medium.svg" alt="Event logo">
 <div class="banner-meta">
 <h3>Medium Articles</h3>
 <p>Hosting codelabs that have been used to write Medium articles</p>
@@ -95,18 +95,7 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 </paper-listbox>
 </paper-dropdown-menu></div>
 <card-sorter id="cards" class="site-width">
-<a href="/codelabs/how-to-create-your-own-codelab-automated/index.html?index=..%2F..medium" on-tap="navigate" class="codelab-card category-gitaction" data-category="gitaction" data-title="How to create your own codelab (automated)" data-duration="21" data-updated="2021-05-21T08:11:59Z" data-tags="medium" data-pin="">
-<div class="description">How to create your own codelab (automated)</div>
-<div class="card-duration">
-<span>21 min </span>
-<span>Updated May 21, 2021</span>
-</div>
-<div class="card-footer">
-<div class="category-icon gitaction-icon"></div>
-<paper-button class="gitaction-bg">Start</paper-button>
-</div>
-</a>
-<a href="/codelabs/how-to-create-your-own-codelab-manual/index.html?index=..%2F..medium" on-tap="navigate" class="codelab-card category-web" data-category="web" data-title="How to create your own codelab (manual)" data-duration="45" data-updated="2021-05-21T08:12:00Z" data-tags="medium" data-pin="">
+<a href="/codelabs-base/codelabs/how-to-create-your-own-codelab-manual/index.html?index=..%2F..medium" on-tap="navigate" class="codelab-card category-web" data-category="web" data-title="How to create your own codelab (manual)" data-duration="45" data-updated="2021-05-21T14:46:15Z" data-tags="medium" data-pin="">
 <div class="description">How to create your own codelab (manual)</div>
 <div class="card-duration">
 <span>45 min </span>
@@ -115,6 +104,17 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 <div class="card-footer">
 <div class="category-icon web-icon"></div>
 <paper-button class="web-bg">Start</paper-button>
+</div>
+</a>
+<a href="/codelabs-base/codelabs/how-to-setup-your-own-codelab-site/index.html?index=..%2F..medium" on-tap="navigate" class="codelab-card category-gitaction" data-category="gitaction,web" data-title="How to setup your own codelab site (automated)" data-duration="26" data-updated="2021-05-21T14:46:15Z" data-tags="medium" data-pin="">
+<div class="description">How to setup your own codelab site (automated)</div>
+<div class="card-duration">
+<span>26 min </span>
+<span>Updated May 21, 2021</span>
+</div>
+<div class="card-footer">
+<div class="category-icon gitaction-icon"></div>
+<paper-button class="gitaction-bg">Start</paper-button>
 </div>
 </a>
 </card-sorter>
@@ -156,6 +156,6 @@ Loading Codelabs, please wait...
 </div>
 </div>
 </paper-header-panel>
-<script src="/codelabs/scripts/main.js"></script>
+<script src="/codelabs-base/scripts/main.js"></script>
 </body>
 </html>

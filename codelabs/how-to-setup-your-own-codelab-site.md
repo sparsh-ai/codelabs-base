@@ -1,12 +1,12 @@
 summary: In this tutorial, we will learn how to setup our own tutorial repositories using codelab and git actions.
-id: how-to-create-your-own-codelab-automated
-categories: Gitaction
+id: how-to-setup-your-own-codelab-site
+categories: Gitaction, Web
 tags: medium
 status: Published
 authors: Sparsh A.
 Feedback Link: https://github.com/sparsh-ai/codelabs/issues
 
-# How to create your own codelab (automated)
+# How to setup your own codelab site (automated)
 
 <!-- ------------------------ -->
 ## Prepare your Tutorial
@@ -20,36 +20,38 @@ We chose jupyter notebooks as an ideal choice for preparing tutorials because it
 Write down your tutorial in colab as per [these](https://github.com/googlecodelabs/tools/blob/master/FORMAT-GUIDE.md) markdown instructions.
 
 <!-- ------------------------ -->
-## Setup Git Repository
-Duration: 10
-
-This step is a one-time setup process. We will use GitHub to maintain and host our codelab site for free.
-
-### Fork
-Fork [this](https://github.com/sparsh-ai/codelabs) repo.
-
-### Rename (optional)
-Rename this forked repo if you want. You can choose any name you like.
-
-### Update 
-Update the ```config.txt``` file, which is present in the root folder of this forked repo. Replace the two variables:
-1. Put your ```<git username>```.github.io in the TGTBASE variable.
-2. Put your ```repo name``` in the TGTSITE variable.
-
-e.g. for a git user ```sparsh-ai``` and repo name ```codelab```, the updated file would look like this:
-```bash
-export TGTBASE="sparsh-ai.github.io"
-export TGTSITE="codelabs"
-```
-
-### Customize (optional)
-You can customize both landing page and codelabs.
+## Setup your site
+Duration: 5
 
 <aside class="positive">
-Codelab customization is mainly done via tags that we provide during the creation of jupyter notebook based tutorials.
+This step is a one-time setup process. We will use GitHub to maintain and host our codelab site for free.
 </aside>
 
-We can customize the following items in landing page by simple modifications.
+### Clone
+Login to your git account and go to [this](https://github.com/sparsh-ai/codelabs-base) site and click ```Use this template``` button.
+
+![clone](img/how-to-setup-your-own-codelab-site-clone.png)
+
+### Name
+Give your site a name and click on ```Include all branches```.
+
+![name](img/how-to-setup-your-own-codelab-site-rename.png)
+
+### Let it bake
+
+Wait for 3-4 minutes till this yellow dot becomes green. Git Actions is preparing your site in the background. Go to ```Actions``` tab to see the process.
+
+![bake](img/how-to-setup-your-own-codelab-site-bake.png)
+
+<!-- ------------------------ -->
+## Customize (optional)
+Duration: 10
+
+<aside class="positive">
+    You can customize both landing page and codelabs. Codelab customization is mainly done via tags that we provide during the creation of jupyter notebook based tutorials.
+</aside>
+
+You can customize the following items in landing page by simple modifications.
 1. Change Header and Logo
 2. Add Category
 3. Add View

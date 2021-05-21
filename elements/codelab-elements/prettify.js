@@ -28,7 +28,7 @@
  * <p>
  * Usage: <ol>
  * <li> include this source file in an html page via
- *   {@code <script type="text/javascript" src="/codelabs/path/to/prettify.js"></script>}
+ *   {@code <script type="text/javascript" src="/codelabs-base/path/to/prettify.js"></script>}
  * <li> define style rules.  See the example page for examples.
  * <li> mark the {@code <pre>} and {@code <code>} tags in your source with
  *    {@code class=prettyprint.}
@@ -1303,10 +1303,10 @@ var prettyPrint;
            [PR_ATTRIB_NAME,  /^(?!style[\s=]|on)[a-z](?:[\w:-]*\w)?/i],
            ['lang-uq.val',   /^=\s*([^>\'\"\s]*(?:[^>\'\"\s\/]|\/(?=\s)))/],
            [PR_PUNCTUATION,  /^[=<>\/]+/],
-           ['lang-js',       /^on\w+\s*=\s*\"([^\"]+)\"/codelabs/i],
+           ['lang-js',       /^on\w+\s*=\s*\"([^\"]+)\"/codelabs-base/i],
            ['lang-js',       /^on\w+\s*=\s*\'([^\']+)\'/i],
            ['lang-js',       /^on\w+\s*=\s*([^\"\'>\s]+)/i],
-           ['lang-css',      /^style\s*=\s*\"([^\"]+)\"/codelabs/i],
+           ['lang-css',      /^style\s*=\s*\"([^\"]+)\"/codelabs-base/i],
            ['lang-css',      /^style\s*=\s*\'([^\']+)\'/i],
            ['lang-css',      /^style\s*=\s*([^\"\'>\s]+)/i]
            ]),
