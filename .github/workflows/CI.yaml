@@ -40,6 +40,15 @@ jobs:
         do
           claat export "$file"
         done
+    - name: Convert Markdowns to Codelabs
+      run: |
+        cp -r ./_markdowns/img/* ./site/codelabs/img
+        cp -r ./_markdowns/*.md ./site/codelabs
+        cd ./site/codelabs/
+        for file in ./*.md
+        do
+          claat export "$file"
+        done
     - name: Add Redirect Patch
       run: |
         cd ./site/codelabs/
