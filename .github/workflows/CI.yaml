@@ -30,13 +30,13 @@ jobs:
         pip install nbconvert
     - name: Convert to Codelabs
       run: |
-        cp -r ./_notebooks/img ./site/codelabs
+        cp -r ./_notebooks/img ./site/codelabs 2>/dev/null || :
         for file in ./_notebooks/*.ipynb
         do
           jupyter nbconvert --output-dir="./site/codelabs" --to markdown "$file"
         done
-        cp -r ./_markdowns/img/* ./site/codelabs/img
-        cp -r ./_markdowns/*.md ./site/codelabs
+        cp -r ./_markdowns/img/* ./site/codelabs/img 2>/dev/null || :
+        cp -r ./_markdowns/*.md ./site/codelabs 2>/dev/null || :
         cd ./site/codelabs/
         for file in ./*.md
         do
