@@ -1,4 +1,5 @@
 # Tools for authoring and serving codelabs
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/codelabs-base/community)
 
 Template site is published at https://sparsh-ai.github.io/codelabs-base/.
 
